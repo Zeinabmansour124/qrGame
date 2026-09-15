@@ -1,8 +1,7 @@
 import qrcode
 
-BASE_URL = "https://abc-def-123.trycloudflare.com"
+base_url = " https://spearfish-fresh-electable.ngrok-free.dev"  # ← ton URL ngrok
 
-qrcode.make(BASE_URL + "/qr1").save("QR1.png")
-qrcode.make(BASE_URL + "/qr2").save("QR2.png")
-
-print("QR1.png et QR2.png créés.")
+for path in ["qr1", "qr2", "response"]:
+    img = qrcode.make(f"{base_url}/{path}")
+    img.save(f"qr_{path}.png")
