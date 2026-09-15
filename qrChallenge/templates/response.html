@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Tunisian Aeroday — Réponse finale</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+<style>
+  /* ===== Modale ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+  }
+  .modal-overlay.ouvert { display: flex; }
+
+  .modal {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 30px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    animation: pop 0.25s ease;
+  }
+  .modal h2 { margin-bottom: 16px; font-size: 1.4rem; }
+  .modal h2.succes { color: #27ae60; }
+  .modal h2.erreur  { color: #c0392b; }
+  .modal p.message {
+    font-size: 1.15rem;
+    color: #333;
+    margin-bottom: 22px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  .modal button {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 8px;
+    background: #2a5298;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .modal button:hover { background: #1e3c72; }
+
+  #submit-button:disabled { opacity: 0.6; cursor: wait; }
+
+  /* Légère séparation entre les deux champs du formulaire */
+  .form-ticket input { margin-bottom: 14px; }
+
+  @keyframes pop {
+    from { transform: scale(0.9); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div class="hero">
+  <div class="stars"></div>
+  <div class="clouds"></div>
+  <div class="fire-glow"></div>
+  <div class="smoke"></div>
+
+  <div class="ridge-back">
+    <svg viewBox="0 0 1600 420" preserveAspectRatio="none">
+      <polygon points="0,420 0,220 180,150 360,200 560,120 780,180 980,140 1180,190 1380,150 1600,210 1600,420"
+        fill="#1c2c45" opacity="0.75"/>
+    </svg>
+  </div>
+
+  <div class="lake"></div>
+
+  <div class="ridge-main">
+    <svg viewBox="0 0 1600 340" preserveAspectRatio="none">
+      <!-- calm left slope -->
+      <polygon points="0,340 0,120 260,60 520,140 760,90 900,170 900,340" fill="#0d1420"/>
+      <!-- burning right slope -->
+      <polygon points="900,170 1080,80 1260,150 1440,60 1600,120 1600,340 900,340" fill="#120d0a"/>
+      <!-- tree texture, calm side -->
+      <g fill="#0a0f18">
+        <polygon points="60,160 75,120 90,160"/>
+        <polygon points="90,150 108,105 126,150"/>
+        <polygon points="130,168 145,130 160,168"/>
+        <polygon points="170,140 188,95 206,140"/>
+        <polygon points="220,158 235,120 250,158"/>
+        <polygon points="260,120 280,70 300,120"/>
+        <polygon points="300,150 318,108 336,150"/>
+        <polygon points="345,168 360,132 375,168"/>
+        <polygon points="390,145 408,100 426,145"/>
+        <polygon points="440,165 455,128 470,165"/>
+        <polygon points="490,150 508,105 526,150"/>
+        <polygon points="540,175 555,138 570,175"/>
+        <polygon points="590,155 608,112 626,155"/>
+        <polygon points="640,170 655,135 670,170"/>
+        <polygon points="690,160 708,118 726,160"/>
+        <polygon points="740,178 755,142 770,178"/>
+        <polygon points="790,165 808,122 826,165"/>
+        <polygon points="840,180 855,145 870,180"/>
+      </g>
+      <!-- tree texture, burning side (ember rim) -->
+      <g fill="#160f0a">
+        <polygon points="950,190 968,145 986,190"/>
+        <polygon points="995,205 1010,168 1025,205"/>
+        <polygon points="1040,185 1058,140 1076,185"/>
+        <polygon points="1090,200 1105,163 1120,200"/>
+        <polygon points="1135,180 1153,135 1171,180"/>
+        <polygon points="1180,195 1195,158 1210,195"/>
+        <polygon points="1225,175 1243,130 1261,175"/>
+        <polygon points="1270,190 1285,153 1300,190"/>
+        <polygon points="1315,170 1333,125 1351,170"/>
+        <polygon points="1360,185 1375,148 1390,185"/>
+        <polygon points="1405,165 1423,120 1441,165"/>
+        <polygon points="1450,180 1465,143 1480,180"/>
+        <polygon points="1495,160 1513,115 1531,160"/>
+        <polygon points="1540,175 1555,138 1570,175"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="plane-trail"></div>
+  <div class="plane">
+    <svg viewBox="0 0 300 90" fill="#0b0e14">
+      <!-- simple twin-engine seaplane silhouette -->
+      <path d="M0 46 L120 40 L150 8 L158 8 L150 40 L172 40 L182 20 L190 20 L184 40 L300 46 L184 52 L190 72 L182 72 L172 52 L150 52 L158 84 L150 84 L120 52 Z"/>
+      <rect x="95" y="30" width="14" height="8" rx="2"/>
+      <rect x="120" y="26" width="14" height="8" rx="2"/>
+    </svg>
+  </div>
+
+  <div class="vignette"></div>
+
+  <div class="content">
+    <div class="eyebrow">Tunisian</div>
+    <div class="title">AERODAY</div>
+    <div class="tagline">« Voler à travers le ciel… pour sauver ce qui est au sol »</div>
+    <div class="subline">Ce Novembre à l'INSAT</div>
+  </div>
+
+  <div class="ind1">
+    <h1 class="title1">Entrez votre réponse finale</h1>
+
+    <form class="form-ticket" id="form-reponse">
+      <input type="text" id="ticket-number" name="numero" placeholder="Numéro de ticket" required autocomplete="off">
+      <input type="text" id="reponse" name="reponse" placeholder="Votre réponse" required autocomplete="off">
+      <button type="submit" id="submit-button">Soumettre</button>
+    </form>
+  </div>
+
+  <!-- ===== Modale (vide au départ, remplie par JavaScript) ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2 id="modal-titre"></h2>
+      <p class="message" id="modal-message"></p>
+      <button type="button" id="modal-fermer">Fermer</button>
+    </div>
+  </div>
+
+  <script>
+    const form    = document.getElementById("form-reponse");
+    const btn     = document.getElementById("submit-button");
+    const modal   = document.getElementById("modalOverlay");
+    const titre   = document.getElementById("modal-titre");
+    const message = document.getElementById("modal-message");
+
+    function ouvrirModal(estSucces, texte) {
+      if (estSucces) {
+        titre.textContent = "🏆 Félicitations !";
+        titre.className = "succes";
+      } else {
+        titre.textContent = "❌ Oups !";
+        titre.className = "erreur";
+      }
+      message.textContent = texte;
+      modal.classList.add("ouvert");
+    }
+
+    document.getElementById("modal-fermer").addEventListener("click", () => {
+      modal.classList.remove("ouvert");
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.remove("ouvert");
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+
+      try {
+        const res = await fetch("/reponse", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            numero: document.getElementById("ticket-number").value.trim(),
+            reponse: document.getElementById("reponse").value.trim()
+          })
+        });
+        const data = await res.json();
+        ouvrirModal(data.success, data.message);
+      } catch (err) {
+        ouvrirModal(false, "Erreur de connexion au serveur.");
+      }
+
+      btn.disabled = false;
+    });
+  </script>
+
+</div>
+
+</body>
+</html>

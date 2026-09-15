@@ -1,0 +1,223 @@
+
+  :root{
+    --sky-deep:#0a1220;
+    --sky-mid:#16233b;
+    --sky-dusk:#2c3a52;
+    --ember-core:#ffb457;
+    --ember-mid:#ff7a3d;
+    --ember-deep:#c8461b;
+    --smoke:#3a3229;
+    --gold:#f4c97a;
+    --mist:#8fa3bd;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:'Segoe UI',system-ui,sans-serif;
+    overflow:hidden;
+    position:relative;
+  }
+  .hero{
+    position:relative;
+    width:100%;
+    height:100vh;
+    min-height:640px;
+    background:linear-gradient(180deg, var(--sky-deep) 0%, var(--sky-mid) 45%, var(--sky-dusk) 78%, #1a1410 100%);
+    overflow:hidden;
+  }
+
+  /* stars, sparse, left/upper sky only */
+  .stars{
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 8% 12%, rgba(255,255,255,.55), transparent),
+      radial-gradient(1px 1px at 15% 22%, rgba(255,255,255,.4), transparent),
+      radial-gradient(1.5px 1.5px at 22% 8%, rgba(255,255,255,.5), transparent),
+      radial-gradient(1px 1px at 30% 18%, rgba(255,255,255,.35), transparent),
+      radial-gradient(1.5px 1.5px at 5% 30%, rgba(255,255,255,.4), transparent),
+      radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,.3), transparent);
+    opacity:.8;
+  }
+
+  /* soft dusk clouds, left side, cool blue-grey */
+  .clouds{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 420px 90px at 12% 20%, rgba(120,140,170,.28), transparent 70%),
+      radial-gradient(ellipse 500px 110px at 28% 32%, rgba(90,110,145,.22), transparent 70%),
+      radial-gradient(ellipse 380px 80px at 6% 42%, rgba(110,130,160,.2), transparent 70%);
+    filter:blur(2px);
+  }
+
+  /* fire glow rising from the right ridge, warm haze filling sky */
+  .fire-glow{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 900px 700px at 88% 78%, rgba(255,140,60,.55) 0%, rgba(255,100,40,.28) 30%, transparent 65%),
+      radial-gradient(ellipse 600px 500px at 78% 62%, rgba(255,170,90,.35) 0%, transparent 70%);
+    mix-blend-mode:screen;
+  }
+
+  /* smoke plumes drifting up-left from the fire */
+  .smoke{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 260px 380px at 82% 35%, rgba(50,45,42,.55), transparent 75%),
+      radial-gradient(ellipse 320px 420px at 90% 20%, rgba(40,36,34,.5), transparent 75%),
+      radial-gradient(ellipse 220px 300px at 70% 45%, rgba(60,54,50,.4), transparent 75%);
+    filter:blur(6px);
+  }
+
+  /* distant calm mountains, left side, cool tones */
+  .ridge-back{
+    position:absolute; left:0; right:0; bottom:0; height:52%;
+  }
+  .ridge-back svg{width:100%;height:100%;display:block;}
+
+  /* main diagonal ridge: calm forest left -> burning forest right */
+  .ridge-main{
+    position:absolute; left:0; right:0; bottom:0; height:44%;
+  }
+  .ridge-main svg{width:100%;height:100%;display:block;}
+
+  /* lake reflection, lower-left */
+  .lake{
+    position:absolute; left:0; bottom:0; width:38%; height:30%;
+    background:linear-gradient(180deg, rgba(60,80,110,.35), rgba(20,30,45,.55));
+    -webkit-mask-image:linear-gradient(120deg, black 0%, black 60%, transparent 90%);
+            mask-image:linear-gradient(120deg, black 0%, black 60%, transparent 90%);
+  }
+
+  /* fire line along the burning ridge crest */
+  .fire-line{
+    position:absolute; left:48%; right:0; bottom:26%; height:20%;
+    pointer-events:none;
+  }
+  .fire-line svg{width:100%;height:100%;display:block;}
+
+  /* plane silhouette */
+  .plane{
+    position:absolute;
+    top:12%; left:38%;
+    width:min(22vw, 260px);
+    filter:drop-shadow(0 6px 14px rgba(0,0,0,.5));
+  }
+  .plane svg{width:100%;display:block;}
+
+  .plane-trail{
+    position:absolute; top:19%; left:8%; width:34%; height:60px;
+    background:linear-gradient(90deg, transparent, rgba(200,210,225,.25) 60%, rgba(200,210,225,.4));
+    filter:blur(4px);
+    border-radius:50%;
+  }
+
+  /* content */
+  .content{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:flex-end; justify-content:flex-start;
+    text-align:center;
+    padding:5% 5% 0;
+    z-index:5;
+  }
+  .eyebrow{
+    color:var(--gold);
+    letter-spacing:.35em;
+    font-size:clamp(.7rem,1.4vw,1rem);
+    font-weight:600;
+    margin-bottom:.4em;
+  }
+  .title{
+    font-family:Georgia, 'Times New Roman', serif;
+    font-weight:700;
+    font-size:clamp(2.6rem,9vw,6.5rem);
+    line-height:.95;
+    color:#f6efe2;
+    text-shadow:0 0 30px rgba(255,150,70,.35), 0 4px 18px rgba(0,0,0,.6);
+    letter-spacing:.02em;
+  }
+  .tagline{
+    margin-top:1.1em;
+    color:#e9e4d8;
+    font-size:clamp(1rem,2vw,1.35rem);
+    font-style:italic;
+    text-shadow:0 2px 10px rgba(0,0,0,.6);
+  }
+  .subline{
+    margin-top:.5em;
+    color:#dacfcfa8;
+    font-size:clamp(.85rem,1.5vw,1.05rem);
+    letter-spacing:.08em;
+  }
+
+  .vignette{
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,.45) 100%);
+    pointer-events:none;
+  }
+  .ind1{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    text-align:center;
+  }
+  .title1{
+    font-size:2rem;
+    color:#ff7a00;
+    margin-bottom:1rem;
+    font-style:italic;
+    letter-spacing:.1em;
+  }
+#ticket-number {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+#ticket-number:focus {
+  border-color: #ff7a00;
+}
+
+#submit-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff7a00; /* orange */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#submit-button:hover {
+  background-color: #e56b00; /* orange plus foncé au survol */
+}
+
+.form-ticket {
+  display: flex;
+  flex-direction: column; /* l’un sous l’autre */
+  gap: 16px;              /* espace entre les deux */
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.rep {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 100;
+}
+
+.form-response2 {
+  display: relative;
+  flex-direction: column; /* l’un sous l’autre */
+  gap: 17px;              /* espace entre les deux */
+  max-width: 400px;
+  margin: 5rem auto;
+}
